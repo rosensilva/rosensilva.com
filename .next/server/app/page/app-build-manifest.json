@@ -3,19 +3,18 @@
     "/page": [
       "static/chunks/[root-of-the-server]__54cdae78._.css",
       "static/chunks/b0207_next_dist_361e8dc7._.js",
-      "static/chunks/Desktop_rosensilva_com_app_layout_tsx_cc4bc78a._.js",
-      "static/chunks/b0207_next_dist_client_components_builtin_global-error_bc23f94f.js",
+      "static/chunks/Desktop_rosensilva_com_app_layout_tsx_d3fc6602._.js",
+      "static/chunks/b0207_next_dist_client_components_builtin_global-error_c8d95e39.js",
       "static/chunks/Desktop_rosensilva_com_000e7b14._.js",
-      "static/chunks/Desktop_rosensilva_com_app_page_tsx_bc23f94f._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_6d0d9339._.js",
+      "static/chunks/Desktop_rosensilva_com_app_page_tsx_c8d95e39._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_a45936be._.js",
       "static/chunks/b0207_next_dist_compiled_react-dom_703dfc84._.js",
       "static/chunks/b0207_next_dist_compiled_next-devtools_index_12ee8cc6.js",
       "static/chunks/b0207_next_dist_compiled_d74d80fa._.js",
       "static/chunks/b0207_next_dist_client_eb4cbcff._.js",
       "static/chunks/b0207_next_dist_cc812b3e._.js",
-      "static/chunks/b0207_@swc_helpers_cjs_b16c3339._.js",
       "static/chunks/Desktop_rosensilva_com_a0ff3932._.js",
-      "static/chunks/turbopack-Desktop_rosensilva_com_c8bda173._.js"
+      "static/chunks/turbopack-Desktop_rosensilva_com_9cd52b5f._.js"
     ]
   }
 }
