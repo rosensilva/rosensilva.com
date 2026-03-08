@@ -1,0 +1,50 @@
+# Rosen Silva
+
+> Technical Lead at WSO2. Building enterprise-grade integration software powering 350+ enterprises worldwide.
+
+## About
+
+Rosen Silva is a Technical Lead at WSO2 based in Sri Lanka. He has 8+ years of experience building and leading large-scale enterprise software. He currently serves as Product Lead for WSO2 Micro Integrator, an integration solution with $20M+ ARR powering 350+ enterprise customers worldwide, including Fortune 500 companies.
+
+He is passionate about software architecture, enterprise integration, and API management, and strives to deliver exceptional business value through innovative technology solutions.
+
+## Experience
+
+- Technical Lead at WSO2 (Feb 2024 – Present): Product Lead for WSO2 Micro Integrator. Drives roadmap, feature prioritization, and release cycles for a $20M+ ARR product. Built Integration Studio (VS Code extension), patch distribution pipelines, and customer issue triaging systems.
+- Associate Technical Lead at WSO2 (Nov 2020 – Feb 2024): Led key product areas in WSO2 API Manager and Enterprise Integrator, driving customer-centric feature development and resolving critical technical challenges.
+- Senior Software Engineer at WSO2 (Apr 2019 – Oct 2020): Drove feature development and technical improvements across WSO2's enterprise integration product suite.
+- Software Engineer at WSO2 (Dec 2017 – Mar 2019): Built and maintained enterprise integration features for WSO2's core product line.
+- Software Engineering Intern at WSO2 (Oct 2016 – Feb 2017): Worked with the WSO2 IoT team implementing Smart Building concepts at the WSO2 office.
+
+## Skills
+
+- C, Product Management, Team Leadership, Software Architecture
+- Enterprise Integration, API Management, VS Code Extensions
+- WSO2 Micro Integrator, WSO2 API Manager
+- Release Management, Customer Engineering, IoT
+
+## Education
+
+- Bachelor of Science in Computer Engineering, University of Peradeniya (2014 – 2017)
+
+## Awards
+
+- Sustained Outstanding Contribution Award, WSO2 (2018)
+- Sustained Outstanding Contribution Award, WSO2 (2019)
+- Sustained Outstanding Contribution Award, WSO2 (2020)
+
+## Publications
+
+- Real-time Video Enhancement Using Graphical Processing Units
+- Visual Design Platform for Wireless Sensor Network
+
+## Contact
+
+- Email: rosen@live.com
+- LinkedIn: https://www.linkedin.com/in/rosensilva
+- Website: https://rosensilva.com
+
+## Links
+
+- [Website](https://rosensilva.com)
+- [LinkedIn](https://www.linkedin.com/in/rosensilva)

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -65,14 +66,33 @@ const PUBLICATIONS = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="bg-[#080808] text-gray-100 min-h-screen">
+    <div className="bg-white dark:bg-[#080808] text-gray-900 dark:text-gray-100 min-h-screen">
       {/* Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#080808]/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="#" className="text-white font-bold text-xl tracking-tight">
-            RS
+          <a
+            href="#"
+            className="text-gray-900 dark:text-white font-bold tracking-tight transition-all duration-300 overflow-hidden whitespace-nowrap"
+          >
+            <span
+              className={`inline-block transition-all duration-300 ${
+                scrolled
+                  ? "max-w-[2ch] text-xl"
+                  : "max-w-[12ch] text-lg"
+              }`}
+            >
+              {scrolled ? "RS" : "Rosen Silva"}
+            </span>
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -80,65 +100,71 @@ export default function Home() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-gray-500 hover:text-white transition-colors duration-200"
+                className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <a
-            href="mailto:rosen@live.com"
-            className="hidden md:inline-flex text-sm text-indigo-400 border border-indigo-500/30 bg-indigo-500/5 hover:bg-indigo-500/10 px-4 py-2 rounded-full transition-colors duration-200"
-          >
-            Get in touch
-          </a>
-
-          <button
-            className="md:hidden text-gray-400 hover:text-white"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
+            <a
+              href="mailto:rosen@live.com"
+              className="text-sm text-indigo-600 dark:text-indigo-400 border border-indigo-300/40 dark:border-indigo-500/30 bg-indigo-50 dark:bg-indigo-500/5 hover:bg-indigo-100 dark:hover:bg-indigo-500/10 px-4 py-2 rounded-full transition-colors duration-200"
             >
-              {menuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              Get in touch
+            </a>
+          </div>
+
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {menuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-white/5 bg-[#080808] px-6 py-4 space-y-4">
+          <div className="md:hidden border-t border-gray-200 dark:border-white/5 bg-white dark:bg-[#080808] px-6 py-4 space-y-4">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block text-sm text-gray-400 hover:text-white transition-colors"
+                className="block text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 {link.label}
               </a>
             ))}
             <a
               href="mailto:rosen@live.com"
-              className="block text-sm text-indigo-400"
+              className="block text-sm text-indigo-600 dark:text-indigo-400"
             >
               rosen@live.com
             </a>
@@ -148,24 +174,25 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.12),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(168,85,247,0.06),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.12),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(168,85,247,0.04),transparent)] dark:bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(168,85,247,0.06),transparent)]" />
 
         <div className="relative max-w-5xl mx-auto px-6 py-32 text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-indigo-400/70 tracking-widest uppercase mb-8 border border-indigo-500/20 bg-indigo-500/5 px-4 py-2 rounded-full">
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-indigo-600/70 dark:text-indigo-400/70 tracking-widest uppercase mb-8 border border-indigo-300/40 dark:border-indigo-500/20 bg-indigo-50 dark:bg-indigo-500/5 px-4 py-2 rounded-full">
             Technical Lead · WSO2
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-6">
-            <span className="bg-gradient-to-b from-white via-gray-100 to-gray-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-400 dark:from-white dark:via-gray-100 dark:to-gray-500 bg-clip-text text-transparent">
               Rosen Silva
             </span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
             Building enterprise-grade integration software at{" "}
-            <span className="text-gray-300">WSO2</span>, trusted by 350+
-            enterprises worldwide — including Fortune 500 companies.
+            <span className="text-gray-700 dark:text-gray-300">WSO2</span>,
+            trusted by 350+ enterprises worldwide — including Fortune 500
+            companies.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -179,14 +206,14 @@ export default function Home() {
               href="https://www.linkedin.com/in/rosensilva"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/20 px-6 py-3 rounded-full transition-colors duration-200"
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 px-6 py-3 rounded-full transition-colors duration-200"
             >
               LinkedIn
             </a>
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-700 animate-bounce">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-300 dark:text-gray-700 animate-bounce">
           <svg
             className="w-5 h-5"
             fill="none"
@@ -204,21 +231,21 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-24 border-t border-white/5">
+      <section id="about" className="py-24 border-t border-gray-200 dark:border-white/5">
         <div className="max-w-5xl mx-auto px-6">
           <Label>About</Label>
           <div className="grid md:grid-cols-5 gap-12 mt-8">
             <div className="md:col-span-3 space-y-4">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 A builder at heart
               </h2>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 A technical leader with 7+ years of expertise building and
                 leading large-scale enterprise software. I lead the WSO2 Micro
                 Integrator ($20M+ ARR), an integration solution powering 350+
                 enterprise customers worldwide, including Fortune 500 companies.
               </p>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Previously, I led key product areas in WSO2 API Manager and
                 Enterprise Integrator, drove customer-centric feature
                 development, and resolved critical technical challenges.
@@ -226,7 +253,7 @@ export default function Home() {
                 and API management.
               </p>
             </div>
-            <div className="md:col-span-2 space-y-0 divide-y divide-white/5">
+            <div className="md:col-span-2 space-y-0 divide-y divide-gray-200 dark:divide-white/5">
               <InfoRow label="Location" value="Sri Lanka" />
               <InfoRow label="Languages" value="English, Sinhala" />
               <InfoRow label="Email" value="rosen@live.com" />
@@ -237,10 +264,13 @@ export default function Home() {
       </section>
 
       {/* Experience */}
-      <section id="experience" className="py-24 border-t border-white/5">
+      <section
+        id="experience"
+        className="py-24 border-t border-gray-200 dark:border-white/5"
+      >
         <div className="max-w-5xl mx-auto px-6">
           <Label>Experience</Label>
-          <h2 className="text-3xl font-bold text-white mt-2 mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-2 mb-16">
             8+ years at WSO2
           </h2>
 
@@ -250,13 +280,15 @@ export default function Home() {
                 key={i}
                 className="group grid md:grid-cols-[180px_1fr] gap-4 md:gap-8"
               >
-                <p className="text-xs font-mono text-gray-600 md:text-right md:pt-1 shrink-0">
+                <p className="text-xs font-mono text-gray-400 dark:text-gray-600 md:text-right md:pt-1 shrink-0">
                   {exp.period}
                 </p>
-                <div className="relative pl-5 border-l border-white/10 group-hover:border-indigo-500/50 transition-colors duration-300">
-                  <div className="absolute -left-[5px] top-[5px] w-2.5 h-2.5 rounded-full bg-[#1a1a1a] border border-gray-700 group-hover:border-indigo-500 group-hover:bg-indigo-500/20 transition-colors duration-300" />
-                  <p className="text-white font-semibold">{exp.role}</p>
-                  <p className="text-xs text-indigo-400/60 mt-0.5 mb-3 font-mono">
+                <div className="relative pl-5 border-l border-gray-200 dark:border-white/10 group-hover:border-indigo-500/50 transition-colors duration-300">
+                  <div className="absolute -left-[5px] top-[5px] w-2.5 h-2.5 rounded-full bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-700 group-hover:border-indigo-500 group-hover:bg-indigo-500/20 transition-colors duration-300" />
+                  <p className="text-gray-900 dark:text-white font-semibold">
+                    {exp.role}
+                  </p>
+                  <p className="text-xs text-indigo-600/60 dark:text-indigo-400/60 mt-0.5 mb-3 font-mono">
                     WSO2
                   </p>
                   <p className="text-sm text-gray-500 leading-relaxed">
@@ -270,17 +302,20 @@ export default function Home() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="py-24 border-t border-white/5">
+      <section
+        id="skills"
+        className="py-24 border-t border-gray-200 dark:border-white/5"
+      >
         <div className="max-w-5xl mx-auto px-6">
           <Label>Skills</Label>
-          <h2 className="text-3xl font-bold text-white mt-2 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-2 mb-8">
             What I work with
           </h2>
           <div className="flex flex-wrap gap-3">
             {SKILLS.map((skill) => (
               <span
                 key={skill}
-                className="text-sm text-gray-400 bg-white/5 border border-white/10 hover:border-indigo-500/40 hover:text-indigo-300 hover:bg-indigo-500/5 px-4 py-2 rounded-full transition-colors duration-200 cursor-default"
+                className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-indigo-400/50 dark:hover:border-indigo-500/40 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/5 px-4 py-2 rounded-full transition-colors duration-200 cursor-default"
               >
                 {skill}
               </span>
@@ -290,50 +325,61 @@ export default function Home() {
       </section>
 
       {/* Education */}
-      <section id="education" className="py-24 border-t border-white/5">
+      <section
+        id="education"
+        className="py-24 border-t border-gray-200 dark:border-white/5"
+      >
         <div className="max-w-5xl mx-auto px-6">
           <Label>Education</Label>
-          <h2 className="text-3xl font-bold text-white mt-2 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-2 mb-8">
             Academic background
           </h2>
 
-          <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-colors duration-200">
-            <p className="text-xs font-mono text-gray-600 mb-3">2014 – 2017</p>
-            <h3 className="text-white font-semibold text-lg">
+          <div className="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-2xl p-6 hover:border-gray-300 dark:hover:border-white/20 transition-colors duration-200">
+            <p className="text-xs font-mono text-gray-400 dark:text-gray-600 mb-3">
+              2014 – 2017
+            </p>
+            <h3 className="text-gray-900 dark:text-white font-semibold text-lg">
               University of Peradeniya
             </h3>
-            <p className="text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
               Bachelor of Science in Computer Engineering
             </p>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mt-14 mb-6">Awards</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-14 mb-6">
+            Awards
+          </h2>
           <div className="grid md:grid-cols-3 gap-4">
             {[2018, 2019, 2020].map((year) => (
               <div
                 key={year}
-                className="bg-white/[0.03] border border-white/10 hover:border-indigo-500/30 rounded-2xl p-5 transition-colors duration-200"
+                className="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 hover:border-indigo-300/50 dark:hover:border-indigo-500/30 rounded-2xl p-5 transition-colors duration-200"
               >
-                <div className="text-indigo-500 text-lg mb-3 font-bold">✦</div>
-                <p className="text-white text-sm font-medium leading-snug">
+                <div className="text-indigo-500 text-lg mb-3 font-bold">
+                  ✦
+                </div>
+                <p className="text-gray-900 dark:text-white text-sm font-medium leading-snug">
                   Sustained Outstanding Contribution Award
                 </p>
-                <p className="text-xs text-gray-600 mt-2">WSO2 · {year}</p>
+                <p className="text-xs text-gray-400 dark:text-gray-600 mt-2">
+                  WSO2 · {year}
+                </p>
               </div>
             ))}
           </div>
 
-          <h2 className="text-2xl font-bold text-white mt-14 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-14 mb-6">
             Publications
           </h2>
           <div className="space-y-3">
             {PUBLICATIONS.map((pub) => (
               <div
                 key={pub}
-                className="bg-white/[0.03] border border-white/10 hover:border-white/20 rounded-xl p-5 flex items-start gap-4 transition-colors duration-200"
+                className="bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 rounded-xl p-5 flex items-start gap-4 transition-colors duration-200"
               >
                 <svg
-                  className="w-4 h-4 text-gray-600 mt-0.5 shrink-0"
+                  className="w-4 h-4 text-gray-400 dark:text-gray-600 mt-0.5 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -345,7 +391,9 @@ export default function Home() {
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                <p className="text-sm text-gray-400">{pub}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {pub}
+                </p>
               </div>
             ))}
           </div>
@@ -353,10 +401,13 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 border-t border-white/5">
+      <section
+        id="contact"
+        className="py-24 border-t border-gray-200 dark:border-white/5"
+      >
         <div className="max-w-5xl mx-auto px-6 text-center">
           <Label>Contact</Label>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-4">
             Let&apos;s connect
           </h2>
           <p className="text-gray-500 max-w-md mx-auto mb-10">
@@ -374,7 +425,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/rosensilva"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/20 px-8 py-3 rounded-full transition-colors duration-200"
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 px-8 py-3 rounded-full transition-colors duration-200"
             >
               LinkedIn
             </a>
@@ -383,21 +434,21 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-8">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-700 text-sm">
+      <footer className="border-t border-gray-200 dark:border-white/5 py-8">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-400 dark:text-gray-700 text-sm">
           <p>© 2026 Rosen Silva</p>
           <div className="flex gap-6">
             <a
               href="https://www.linkedin.com/in/rosensilva"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-400 transition-colors"
+              className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
             >
               LinkedIn
             </a>
             <a
               href="mailto:rosen@live.com"
-              className="hover:text-gray-400 transition-colors"
+              className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
             >
               Email
             </a>
@@ -410,7 +461,7 @@ export default function Home() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-block text-xs font-mono text-indigo-400 tracking-widest uppercase border border-indigo-500/20 bg-indigo-500/5 px-3 py-1 rounded-full">
+    <span className="inline-block text-xs font-mono text-indigo-600 dark:text-indigo-400 tracking-widest uppercase border border-indigo-300/40 dark:border-indigo-500/20 bg-indigo-50 dark:bg-indigo-500/5 px-3 py-1 rounded-full">
       {children}
     </span>
   );
@@ -419,8 +470,10 @@ function Label({ children }: { children: React.ReactNode }) {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start gap-4 py-3">
-      <p className="text-xs text-gray-600 w-20 shrink-0 mt-0.5">{label}</p>
-      <p className="text-sm text-gray-400">{value}</p>
+      <p className="text-xs text-gray-400 dark:text-gray-600 w-20 shrink-0 mt-0.5">
+        {label}
+      </p>
+      <p className="text-sm text-gray-600 dark:text-gray-400">{value}</p>
     </div>
   );
 }

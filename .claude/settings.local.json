@@ -5,7 +5,9 @@
       "Bash(npm run build)",
       "Bash(source ~/.nvm/nvm.sh)",
       "Bash(nvm use 18)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(lsof -ti :3000)",
+      "Bash(xargs kill -9)"
     ]
   }
 }
