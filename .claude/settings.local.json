@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(source ~/.nvm/nvm.sh)",
+      "Bash(nvm use 18)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
